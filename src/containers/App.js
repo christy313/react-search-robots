@@ -8,27 +8,19 @@ import "tachyons";
 export default function App() {
   const [robots, setRobots] = useState([]);
   const [searchField, setSearchField] = useState("");
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     robots: [],
-  //     searchfield: "",
-  //   };
-  // }
 
-  // componentDidMount() {
-  //   fetch("https://jsonplaceholder.typicode.com/users")
-  //     .then((res) => res.json())
-  //     .then((users) => this.setState({ robots: users }));
-  // }
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => res.json())
+      .then((users) => setRobots(users));
+  }, []);
 
   const onSearchChange = (e) => {
-    this.setState({ searchfield: e.target.value });
+    setSearchField(e.target.value);
   };
 
-  const { robots, searchfield } = this.state;
   const filteredRobots = robots.filter((robot) =>
-    robot.name.toLowerCase().includes(searchfield.toLowerCase())
+    robot.name.toLowerCase().includes(searchField.toLowerCase())
   );
 
   if (!robots.length) {
