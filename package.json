@@ -1,6 +1,6 @@
 {
-  "name": "react-class-component-search-robots",
-  "homepage": "https://christy313.github.io/react-class-component-search-robots",
+  "name": "react-search-robots",
+  "homepage": "https://christy313.github.io/react-search-robots",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
