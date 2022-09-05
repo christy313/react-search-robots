@@ -2,7 +2,7 @@
 
 This is a simple React app with search function.
 
-[Search robots demo here](https://christy313.github.io/react-class-component-search-robots/)
+[Search robots demo](https://christy313.github.io/react-search-robots/)
 
 ## Technologies
 
