@@ -4,7 +4,7 @@ This is a simple React app with search function.
 
 [Search robots demo](https://christy313.github.io/react-search-robots/)
 
-![]("./image/react-search-robots.gif")
+![](./image/react-search-robots.gif)
 
 ## Technologies
 
