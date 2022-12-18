@@ -5,30 +5,40 @@ import SearchBox from "../components/SearchBox";
 import Scroll from "../components/Scroll";
 import ErrorBoundary from "../components/ErrorBoundary";
 import "tachyons";
-import { setSearchField } from "../actions";
+import { setSearchField, requestRobots } from "../actions";
 
 const mapStateToProps = (state) => {
   return {
-    searchField: state.searchField,
+    searchField: state.searchRobots.searchField,
+    robots: state.requestRobots.robots,
+    isPending: state.requestRobots.isPending,
+    error: state.requestRobots.error,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+    onRequestRobots: () => dispatch(requestRobots()),
   };
 };
 
-function App({ searchField, onSearchChange }) {
-  const [robots, setRobots] = useState([]);
-
+function App({
+  searchField,
+  onSearchChange,
+  onRequestRobots,
+  robots,
+  isPending,
+}) {
+  // const [robots, setRobots] = useState([]);
   // const [searchField, setSearchField] = useState("");
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => res.json())
-      .then((users) => setRobots(users));
-  }, []);
+    // fetch("https://jsonplaceholder.typicode.com/users")
+    //   .then((res) => res.json())
+    //   .then((users) => setRobots(users));
+    onRequestRobots();
+  }, [onRequestRobots]);
 
   // const onSearchChange = (e) => {
   //   setSearchField(e.target.value);
@@ -38,21 +48,19 @@ function App({ searchField, onSearchChange }) {
     robot.name.toLowerCase().includes(searchField.toLowerCase())
   );
 
-  if (!robots.length) {
-    return <h1>Loading</h1>;
-  } else {
-    return (
-      <div className="tc">
-        <h1>Search Robots</h1>
-        <SearchBox searchChange={onSearchChange} />
-        <Scroll>
-          <ErrorBoundary>
-            <CardList robots={filteredRobots} />
-          </ErrorBoundary>
-        </Scroll>
-      </div>
-    );
-  }
+  return isPending ? (
+    <h1>Loading</h1>
+  ) : (
+    <div className="tc">
+      <h1>Search Robots</h1>
+      <SearchBox searchChange={onSearchChange} />
+      <Scroll>
+        <ErrorBoundary>
+          <CardList robots={filteredRobots} />
+        </ErrorBoundary>
+      </Scroll>
+    </div>
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
